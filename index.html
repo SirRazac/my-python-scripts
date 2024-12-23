@@ -1,83 +1,74 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Push Notification Test mit Firebase</title>
-  </head>
-  <body>
-    <h1>Push Notification Test mit Firebase</h1>
-    <p id="token">Geräte-Token wird hier angezeigt</p>
 
-    <!-- Button zum Anfordern der Berechtigung -->
-    <button id="requestPermission">Berechtigung anfordern</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Push Notification Test mit Firebase</title>
+</head>
 
-    <!-- Firebase SDKs -->
-    <script type="module">
-      // Firebase SDKs importieren
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
-      import {
-        getMessaging,
-        getToken,
-        onMessage,
-      } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging.js";
+<body>
+  <h1>Push Notification Test mit Firebase</h1>
+  <p id="token">Geräte-Token wird hier angezeigt</p>
 
-      // Deine Firebase-Konfiguration (ersetze diese mit deinen eigenen Konfigurationsdaten)
-      const firebaseConfig = {
-        apiKey: "AIzaSyBwVoTWR6lqBK8BUsQK12l_UQfWLvs_eNo",
-        authDomain: "pushtest-a8d7a.firebaseapp.com",
-        projectId: "pushtest-a8d7a",
-        storageBucket: "pushtest-a8d7a.firebasestorage.app",
-        messagingSenderId: "464581164056",
-        appId: "1:464581164056:web:5ed0e5c4b7735ff4fc976d",
-        measurementId: "G-G20G63ZYCF",
-      };
+  <!-- Button zum Anfordern der Berechtigung -->
+  <button id="requestPermission">Berechtigung anfordern</button>
 
-      // Firebase initialisieren
-      const app = initializeApp(firebaseConfig);
-      const messaging = getMessaging(app);
+  <!-- Firebase SDKs -->
+  <script type="module">
+    // Firebase initialisieren und Token abrufen (index.html)
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+    import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging.js";
 
-      // Service Worker registrieren
-      navigator.serviceWorker
-        .register("/firebase-messaging-sw.js") // Absoluter Pfad
-        .then(function (registration) {
-          console.log("Service Worker registriert:", registration);
-        })
-        .catch(function (err) {
-          console.log("Service Worker Registrierung fehlgeschlagen:", err);
-        });
+    const firebaseConfig = {
+      apiKey: "AIzaSyBwVoTWR6lqBK8BUsQK12l_UQfWLvs_eNo",
+      authDomain: "pushtest-a8d7a.firebaseapp.com",
+      projectId: "pushtest-a8d7a",
+      storageBucket: "pushtest-a8d7a.firebasestorage.app",
+      messagingSenderId: "464581164056",
+      appId: "1:464581164056:web:5ed0e5c4b7735ff4fc976d",
+      measurementId: "G-G20G63ZYCF",
+    };
 
-      // Button-Click für Berechtigungsanfrage
-      document
-        .getElementById("requestPermission")
-        .addEventListener("click", () => {
-          Notification.requestPermission().then((permission) => {
-            if (permission === "granted") {
-              console.log("Berechtigung erteilt");
+    // Firebase initialisieren
+    const app = initializeApp(firebaseConfig);
+    const messaging = getMessaging(app);
 
-              // Gerätetoken abrufen
-              getToken(messaging, {
-                vapidKey:
-                  "BPyZOwS8jmIdqiZBipv-Qac3q6pPVhOpfdPpwKsI46LC0PufQU944YhHXgAicFJXtLdRL7wG-t8oF64np5DGtS8",
-              }) // Setze hier den VAPID-Schlüssel ein
-                .then((currentToken) => {
-                  if (currentToken) {
-                    // Token anzeigen
-                    document.getElementById("token").innerText =
-                      "Dein Gerätetoken: " + currentToken;
-                    console.log("Token erhalten: ", currentToken);
-                  } else {
-                    console.log("Kein Token verfügbar");
-                  }
-                })
-                .catch((err) => {
-                  console.log("Fehler beim Abrufen des Tokens: ", err);
-                });
+    // Service Worker registrieren
+    navigator.serviceWorker.register('./firebase-messaging-sw.js')
+      .then(function (registration) {
+        console.log('Service Worker registriert:', registration);
+      })
+      .catch(function (err) {
+        console.log('Fehler bei der Service Worker Registrierung:', err);
+      });
+
+    // Berechtigungsanfrage und Token-Abruf
+    document.getElementById("requestPermission").addEventListener("click", () => {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          console.log("Berechtigung erteilt");
+
+          // Gerätetoken abrufen
+          getToken(messaging, {
+            vapidKey: "BPyZOwS8jmIdqiZBipv-Qac3q6pPVhOpfdPpwKsI46LC0PufQU944YhHXgAicFJXtLdRL7wG-t8oF64np5DGtS8",
+          }).then((currentToken) => {
+            if (currentToken) {
+              document.getElementById("token").innerText = "Dein Gerätetoken: " + currentToken;
+              console.log("Token erhalten: ", currentToken);
             } else {
-              console.log("Berechtigung verweigert");
+              console.log("Kein Token verfügbar");
             }
+          }).catch((err) => {
+            console.log("Fehler beim Abrufen des Tokens: ", err);
           });
-        });
-    </script>
-  </body>
+        } else {
+          console.log("Berechtigung verweigert");
+        }
+      });
+    });
+
+  </script>
+</body>
+
 </html>

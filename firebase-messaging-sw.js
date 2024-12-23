@@ -1,31 +1,22 @@
-// Importiere Firebase und Firebase Messaging
-importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging.js');
+self.addEventListener('install', (event) => {
+  console.log('Service Worker installiert');
+});
 
-// Firebase-Konfiguration
-const firebaseConfig = {
-  apiKey: "AIzaSyBwVoTWR6lqBK8BUsQK12l_UQfWLvs_eNo",
-  authDomain: "pushtest-a8d7a.firebaseapp.com",
-  projectId: "pushtest-a8d7a",
-  storageBucket: "pushtest-a8d7a.firebasestorage.app",
-  messagingSenderId: "464581164056",
-  appId: "1:464581164056:web:5ed0e5c4b7735ff4fc976d",
-  measurementId: "G-G20G63ZYCF",
-};
+self.addEventListener('activate', (event) => {
+  console.log('Service Worker aktiviert');
+});
 
-// Firebase initialisieren
-firebase.initializeApp(firebaseConfig);
+// Empfangen von Push-Nachrichten im Hintergrund
+self.addEventListener('push', (event) => {
+  const payload = event.data.json();
+  console.log("Push-Nachricht empfangen: ", payload);
 
-// Firebase Messaging initialisieren
-const messaging = firebase.messaging();
-
-// Empfang von Hintergrundnachrichten
-messaging.onBackgroundMessage(function(payload) {
-  console.log('Hintergrund-Nachricht empfangen ', payload);
-  const notificationTitle = 'Hintergrundbenachrichtigung';
+  const notificationTitle = payload.title || 'Neue Nachricht';
   const notificationOptions = {
-    body: payload.body,
+    body: payload.body || 'Du hast eine neue Nachricht.',
   };
 
-  self.registration.showNotification(notificationTitle, notificationOptions);
+  event.waitUntil(
+    self.registration.showNotification(notificationTitle, notificationOptions)
+  );
 });
