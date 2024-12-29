@@ -6,7 +6,7 @@ cred = credentials.Certificate("firebaseKey.json")
 firebase_admin.initialize_app(cred)
 
 # Dein Firebase-Gerätetoken (z.B. von einer Web-App, einem Testgerät, etc.)
-device_token = "dFhaY8RzRHxwc4suWsmUEO:APA91bH6rGX81Gm5IyLkvJNanK8ab8lwe3AfwtrgIXFDB5VJkqW34RnPSSoZhowZN-iZxHzCZSPw6xjlAc9St5MY8abiLXptrGzntIcvBoxuBlHbovQA-h4"
+device_token = "c-0uG7pjH8gcpg6lvQMLkf:APA91bF3F_hkoCbqnSBzOAsahmEy0oJTAJKtxyIoBDcSQgrMvaQjfSfSUH2v8A21_Z1_YL8OXMiNQAOmm7UFVA-PhMN-ODireL45-Ep4V2gQ0nGPXBJYEBM"
 
 # Erstelle eine Nachricht
 message = messaging.Message(
