@@ -1,3 +1,6 @@
+# ------------------------------------------------------------------------------
+# Import Packages
+# ------------------------------------------------------------------------------
 from datetime import datetime
 
 def berechne_arbeitszeit(startzeit, endzeit, pause_minuten):
