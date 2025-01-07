@@ -39,3 +39,24 @@ def get_player_guess():
 # testing function
 spieler_buchstabe = get_player_guess()
 print(f"Du hast den Buchstaben '{spieler_buchstabe}' gewählt.")
+
+# function to check the letter
+def check_guess(word, guessed_letters, guess):
+    if guess in word: 
+        print(f"Gut gemacht! '{guess}' ist im Word enthalten.")
+        guessed_letters.append(guess)
+        return True
+    else: 
+        print(f"Leider ist '{guess}' nicht im Wort :(")
+        return False
+    
+# testing the check
+choose_word = choose_word(word_list)
+guessed_letters = []
+print(f"Das geheime Wort ist: {choose_word}")
+
+spieler_buchstabe = get_player_guess()
+check_guess(choose_word, guessed_letters, spieler_buchstabe)
+
+# showing the word with guesses letters
+print("Aktuelles Wort:", display_word(choose_word, guessed_letters))
