@@ -26,3 +26,16 @@ print("Aktuelles Wort:", display_word(chosen_word, guessed_letters))
 # example
 guessed_letters = ['p', 'o']
 print("Nach dem Raten:", display_word(chosen_word, guessed_letters))
+
+# function for asking a letter 
+def get_player_guess():
+    while True:
+        guess = input("Rate einen Buchstaben: ").lower()
+        if len(guess) == 1 and guess.isalpha():
+            return guess
+        else: 
+            print("Ungültige Eingabe. Bitte einen einzelnen Buchstaben eingeben.")
+
+# testing function
+spieler_buchstabe = get_player_guess()
+print(f"Du hast den Buchstaben '{spieler_buchstabe}' gewählt.")
