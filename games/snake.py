@@ -66,8 +66,8 @@ while running:
             random.randint(0, (HEIGHT // BLOCK_SIZE) - 1) * BLOCK_SIZE)
 
 
-    # Remove the last segment if no food was collected
-    if new_head != food:
+    else:
+        # Remove the last segment if no food was collected
         snake.pop()
 
     # Screen with backcolor
