@@ -52,8 +52,19 @@ while running:
     elif new_head[1] >= HEIGHT:  # If the snake goes off the bottom side of the screen
         new_head = (new_head[0], 0)  # Appear at the top
 
+    # End the game if snake collides with itself
+    if new_head in snake:
+        running = False  
+    
     # Add the new head of the snake
     snake.insert(0, new_head)
+    
+    # Check if snake eats the food
+    if new_head == food:
+        # New food position (randomly within screen bounds)
+        food = (random.randint(0, (WIDTH // BLOCK_SIZE) - 1) * BLOCK_SIZE,
+            random.randint(0, (HEIGHT // BLOCK_SIZE) - 1) * BLOCK_SIZE)
+
 
     # Remove the last segment if no food was collected
     if new_head != food:
