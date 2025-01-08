@@ -24,14 +24,14 @@ while running:
             
     # controlling snake
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_UP] and snake_dir != (0, 20):  # Kein Zurückgehen
-        snake_dir = (0, -20)  # Nach oben
+    if keys[pygame.K_UP] and snake_dir != (0, 20): 
+        snake_dir = (0, -20)  # top
     if keys[pygame.K_DOWN] and snake_dir != (0, -20):
-        snake_dir = (0, 20)  # Nach unten
+        snake_dir = (0, 20)  # bottom
     if keys[pygame.K_LEFT] and snake_dir != (20, 0):
-        snake_dir = (-20, 0)  # Nach links
+        snake_dir = (-20, 0)  # left
     if keys[pygame.K_RIGHT] and snake_dir != (-20, 0):
-        snake_dir = (20, 0)  # Nach rechts
+        snake_dir = (20, 0)  # right
     
     new_head = (snake[0][0] + snake_dir[0], snake [0][1] + snake_dir[1])
     snake.insert(0, new_head) # adding new head
