@@ -13,6 +13,7 @@ clock = pygame.time.Clock()
 # Starting position of snake
 snake = [(100, 100), (80, 100), (60, 100)]
 BLOCK_SIZE = 20
+snake_dir = (BLOCK_SIZE, 0) # starts moving right
 
 # Game loop
 running = True
@@ -20,6 +21,10 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+    
+    new_head = (snake[0][0] + snake_dir[0], snake [0][1] + snake_dir[1])
+    snake.insert(0, new_head) # adding new head
+    snake.pop() # deleting last segment
 
     # Screen with backcolor
     screen.fill((255, 255, 255))  # white
