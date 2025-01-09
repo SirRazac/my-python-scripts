@@ -3,13 +3,18 @@
 # ------------------------------------------------------------------------------
 import firebase_admin
 from firebase_admin import credentials, messaging
+from dotenv import load_dotenv
+import os
+
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '.env'))
 
 # Path to the 'firebase-adminsdk-xxxx.json' file
 cred = credentials.Certificate("firebaseKey.json")
 firebase_admin.initialize_app(cred)
 
 # Firebase device token (e.g., from a web app, test device, etc.)
-device_token = "c-0uG7pjH8gcpg6lvQMLkf:APA91bF3F_hkoCbqnSBzOAsahmEy0oJTAJKtxyIoBDcSQgrMvaQjfSfSUH2v8A21_Z1_YL8OXMiNQAOmm7UFVA-PhMN-ODireL45-Ep4V2gQ0nGPXBJYEBM"
+device_token = os.getenv('FIREBASE_DEVICE_TOKEN')
+print("Device Token:", device_token)  # Gib den Token aus, um sicherzustellen, dass er korrekt geladen wurde
 
 # Create a message
 message = messaging.Message(
