@@ -2,3 +2,4 @@
 .vscode/settings.json
 firebaseConfig.ts
 firebaseKey.json
+.env

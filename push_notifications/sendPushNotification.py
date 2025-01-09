@@ -14,7 +14,6 @@ firebase_admin.initialize_app(cred)
 
 # Firebase device token (e.g., from a web app, test device, etc.)
 device_token = os.getenv('FIREBASE_DEVICE_TOKEN')
-print("Device Token:", device_token)  # Gib den Token aus, um sicherzustellen, dass er korrekt geladen wurde
 
 # Create a message
 message = messaging.Message(
