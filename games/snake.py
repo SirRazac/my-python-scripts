@@ -20,6 +20,8 @@ snake_dir = (BLOCK_SIZE, 0) # starts moving right
 food = (random.randint(0, (WIDTH // BLOCK_SIZE) - 1) * BLOCK_SIZE,
         random.randint(0, (HEIGHT // BLOCK_SIZE) - 1) * BLOCK_SIZE)
 
+score = 0
+
 # Game loop
 running = True
 while running:
@@ -61,9 +63,9 @@ while running:
     
     # Check if snake eats the food
     if new_head == food:
-        # New food position (randomly within screen bounds)
+        score += 1  # Increment score
         food = (random.randint(0, (WIDTH // BLOCK_SIZE) - 1) * BLOCK_SIZE,
-            random.randint(0, (HEIGHT // BLOCK_SIZE) - 1) * BLOCK_SIZE)
+                random.randint(0, (HEIGHT // BLOCK_SIZE) - 1) * BLOCK_SIZE)
 
 
     else:
@@ -81,7 +83,7 @@ while running:
     pygame.draw.rect(screen, (255, 0, 0), (*food, BLOCK_SIZE, BLOCK_SIZE))  # red
     
     pygame.display.flip()
-    clock.tick(20)
+    clock.tick(15)
 
 # game over screen
 if not running:
