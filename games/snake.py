@@ -14,7 +14,7 @@ WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 BLOCK_SIZE = 20
-FPS = 30
+FPS = 15
 
 def start_game():
     # Starting position of snake
