@@ -14,10 +14,11 @@ WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 BLOCK_SIZE = 20
+FPS = 30
 
 def start_game():
     # Starting position of snake
-    snake = [(100, 100), (80, 100), (60, 100)]
+    snake = [(100.0, 100.0), (80.0, 100.0), (60.0, 100.0)]
     snake_dir = (BLOCK_SIZE, 0)  # starts moving right
 
     # Food position
@@ -71,7 +72,7 @@ def start_game():
         
         # Check if snake eats the food
         if new_head == food:
-            score += 1  # Increment score
+            score += 5 
             food = (random.randint(0, (WIDTH // BLOCK_SIZE) - 1) * BLOCK_SIZE,
                     random.randint(0, (HEIGHT // BLOCK_SIZE) - 1) * BLOCK_SIZE)
         else:
@@ -100,7 +101,7 @@ def start_game():
         screen.blit(time_text, (WIDTH - 150, 10))  # Show time on the screen
 
         pygame.display.flip()
-        clock.tick(15)
+        clock.tick(FPS)
 
     # Game Over screen
     game_over_screen(score)
