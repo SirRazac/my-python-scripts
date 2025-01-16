@@ -86,11 +86,15 @@ while running:
     clock.tick(15)
 
 # game over screen
-if not running:
-    font = pygame.font.SysFont('Arial', 50)
-    game_over_text = font.render("Game Over!", True, (255, 0, 0))
-    screen.blit(game_over_text, (WIDTH // 3, HEIGHT // 3))
-    pygame.display.flip()
-    pygame.time.wait(3000)
+font = pygame.font.SysFont('Arial', 50)
+game_over_text = font.render("Game Over!", True, (255, 0, 0))
+score_text = font.render(f"Final Score: {score}", True, (0, 0, 0))
+
+screen.fill((255, 255, 255))
+screen.blit(game_over_text, (WIDTH // 3, HEIGHT // 3))
+screen.blit(score_text, (WIDTH // 3, HEIGHT // 2))
+
+pygame.display.flip()
+pygame.time.wait(3000)
 
 pygame.quit()
