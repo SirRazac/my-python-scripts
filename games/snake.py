@@ -21,6 +21,7 @@ food = (random.randint(0, (WIDTH // BLOCK_SIZE) - 1) * BLOCK_SIZE,
         random.randint(0, (HEIGHT // BLOCK_SIZE) - 1) * BLOCK_SIZE)
 
 score = 0
+start_time = pygame.time.get_ticks()
 
 # Game loop
 running = True
@@ -63,7 +64,7 @@ while running:
     
     # Check if snake eats the food
     if new_head == food:
-        score += 1  # Increment score
+        score += 5  # Increment score
         food = (random.randint(0, (WIDTH // BLOCK_SIZE) - 1) * BLOCK_SIZE,
                 random.randint(0, (HEIGHT // BLOCK_SIZE) - 1) * BLOCK_SIZE)
 
@@ -81,6 +82,17 @@ while running:
 
     # Drawing the food
     pygame.draw.rect(screen, (255, 0, 0), (*food, BLOCK_SIZE, BLOCK_SIZE))  # red
+    
+    # Calculate elapsed time
+    elapsed_time = (pygame.time.get_ticks() - start_time) / 1000  # in seconds
+
+    # Display score and elapsed time
+    font = pygame.font.SysFont('Arial', 25)
+    score_text = font.render(f"Score: {score}", True, (0, 0, 0))
+    time_text = font.render(f"Time: {int(elapsed_time)}s", True, (0, 0, 0))
+
+    screen.blit(score_text, (10, 10))  # Show score on the screen
+    screen.blit(time_text, (WIDTH - 150, 10))  # Show time on the screen
     
     pygame.display.flip()
     clock.tick(15)
