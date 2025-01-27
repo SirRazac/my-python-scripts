@@ -3,32 +3,33 @@ import time
 
 GPIO.setmode(GPIO.BCM)
 
-output_pins = [17, 22, 5]
-input_pins = [18, 23, 6]
-
-for pin in output_pins:
-    GPIO.setup(pin, GPIO.OUT)
-for pin in input_pins:
-    GPIO.setup(pin, GPIO.IN)
+# Liste aller GPIO-Pins (ohne 3.3V, GND, oder andere reservierte Pins)
+gpio_pins = [17, 18, 22, 23, 24, 25, 5, 6, 12, 13, 19, 16, 26, 20, 21]
 
 try:
-    print("Starte Test...")
-    for i, (out_pin, in_pin) in enumerate(zip(output_pins, input_pins)):
-        print(f"Teste Ausgang GPIO{out_pin} → Eingang GPIO{in_pin}")
+    print("Starte GPIO-Funktionstest...")
 
-        GPIO.output(out_pin, GPIO.HIGH)
-        time.sleep(0.5)
+    for pin in gpio_pins:
+        print(f"Prüfe GPIO{pin}...")
 
-        if GPIO.input(in_pin):
-            print(f"Durchgang {i + 1}: Signal erkannt!")
+        # Pin als Ausgang definieren und Signal setzen
+        GPIO.setup(pin, GPIO.OUT)
+        GPIO.output(pin, GPIO.HIGH)
+        time.sleep(0.1)
+
+        # Pin als Eingang definieren und Signal prüfen
+        GPIO.setup(pin, GPIO.IN)
+        if GPIO.input(pin):
+            print(f"GPIO{pin}: Funktioniert!")
         else:
-            print(f"Durchgang {i + 1}: Kein Signal erkannt!")
+            print(f"GPIO{pin}: Keine Funktion erkannt!")
 
-        GPIO.output(out_pin, GPIO.LOW)
-        time.sleep(0.5)
+        # Pin zurücksetzen
+        GPIO.setup(pin, GPIO.OUT)
+        GPIO.output(pin, GPIO.LOW)
+        GPIO.setup(pin, GPIO.IN)
 
-except KeyboardInterrupt:
-    print("Test unterbrochen.")
+    print("Funktionstest abgeschlossen.")
 
 finally:
     GPIO.cleanup()
