@@ -19,8 +19,8 @@ def berechne_sollzeit(arbeitszeit_mit_pause, standard_sollzeit=8):
     return neue_sollzeit
 
 startzeit = input("Gib die Startzeit ein (z.B. 07:00): ")
-endzeit = input("Gib die Endzeit ein (z.B. 15:30): ")
 pause_minuten = int(input("Gib die Pausenzeit in Minuten ein (z.B. 30): "))
+endzeit = input("Gib die Endzeit ein (z.B. 15:30): ")
 
 arbeitszeit_mit_pause = berechne_arbeitszeit(startzeit, endzeit, pause_minuten)
 neue_sollzeit = berechne_sollzeit(arbeitszeit_mit_pause)
