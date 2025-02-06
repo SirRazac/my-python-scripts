@@ -13,8 +13,8 @@ def berechne_arbeitszeit(startzeit, endzeit, pause_minuten):
     """
     start = datetime.strptime(startzeit, "%H:%M")
     end = datetime.strptime(endzeit, "%H:%M")
-    arbeitszeit = (end - start).seconds / 3600  # Umrechnung in Stunden
-    pause = pause_minuten / 60  # Umrechnung der Pausenzeit in Stunden
+    arbeitszeit = (end - start).seconds / 3600
+    pause = pause_minuten / 60
     arbeitszeit_mit_pause = arbeitszeit - pause
     return arbeitszeit_mit_pause
 
@@ -51,7 +51,7 @@ def main():
     # Menü erscheint direkt nach der Eingabe der Pausenzeit
     while True:
         print("\nWähle eine Option:")
-        print("1: Sollzeit nochmal berechnen")
+        print("1: Sollzeit/Arbeitszeit berechnen")
         print("2: Berechne Endzeit für genau 8 Stunden effektive Arbeitszeit")
         print("3: Berechne Endzeit für maximal 9 Stunden effektive Arbeitszeit")
         print("4: Beenden")
